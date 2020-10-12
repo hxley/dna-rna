@@ -1,0 +1,155 @@
+import java.io.*;
+import java.util.*;
+
+
+public class DNAList {
+	
+	
+	public static void main ( String [] args ) {
+		
+		int size = Integer.parseInt( args[ 0 ] );
+		Bio_seq[] link_list  = new Bio_seq[ size ];
+		for ( int i = 0; i < size; i++ ) {
+			
+			link_list[ i ] = null;
+			
+			File text = new File( args[ 1 ] );
+			try {
+				
+				Scanner sc = new Scanner( text );
+				
+				while ( sc.hasNextLine() ) {
+					
+					String line = sc.nextLine();
+					String[] temp = line.split( " + " );
+					if ( temp[ 0 ].charAt( 0 ) == 'i' ) {
+						
+						int index = Integer.parseInt( temp[ 1 ] );
+						if ( index < size ) {
+							
+							if ( temp[ 2 ].compareTo( "DNA" ) == 0 ) {
+								
+								if( valid( 1, temp[ 3 ] ) == true ) {
+									
+									Bio_seq b_seq = new Bio_seq();
+									b_seq.type = "DNA";
+									for( int c = 0; c < temp[ 3 ].length(); c++ ) {
+								
+											b_seq.seq.add( temp[ 3 ].charAt( c ) );
+											link_list[ index ] = b_seq;
+										}
+									}
+									
+									else {
+										
+										if ( valid( 2, temp[ 3 ] ) == true ) {
+											
+											Bio_seq b_seq = new Bio_seq();
+											b_seq.type = "RNA";
+											for( int x = 0; x < temp[ 3 ].length(); x++ ) {
+												
+												b_seq.seq.add( temp[ 3 ].charAt( x ) );
+												link_list[ index ] = b_seq;
+											}
+										}
+									}
+								}
+								
+								else {
+									
+									if ( temp.length > 1 ) {
+										
+										if( link_list[ index ] != null ) {
+											
+											Bio_seq temp_1 = link_list[ index ];
+											System.out.print( temp_1.type + "" );
+											for( int r = 0; r < temp_1.seq.size(); r++ ) {
+											
+												System.out.print( temp_1.seq.get( r ));
+												System.out.println();
+											}
+											
+										}
+											
+										else {
+												
+												System.out.println( "NO SEQUENCE AT THIS POSITION" );
+										}
+									}
+									else {
+											for ( int q = 0; q < size; q++ ) {
+													
+													if( link_list[ q ] != null ) {
+														
+														Bio_seq temp_2 = link_list[ q ];
+														System.out.print( q + " " + temp_2.type + " " );
+														for( int j = 0; j < temp_2.seq.size(); j++ ) {
+															
+															System.out.print( temp_2.seq.get( j ));
+															System.out.println();
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						catch ( FileNotFoundException e ) {
+									
+							e.printStackTrace();
+						}
+					}
+			}
+
+	class main {
+		
+		char[] DNA = { 'A','C','G','T' };
+		char[] RNA = { 'A','C','G','U' };
+		
+		private boolean valid(int type, String res) {
+			// TODO Auto-generated method stub
+			
+			if ( type == 1 ) {
+				
+				for( int i = 0; i < res.length(); i++ ) {
+					
+					if ( res.charAt( i ) != 'A' && res.charAt( i ) != 'C' && res.charAt( i ) != 'G' && res.charAt( i ) != 'T' ) {
+						
+						return false;
+					}
+					
+					return true;
+				
+				}
+			}
+				
+				else {
+					
+					for ( int i = 0; i < res.length(); i++ ) {
+						
+						if( res.charAt( i ) != 'A' && res.charAt( i ) != 'C' && res.charAt( i ) != 'G' && res.charAt( i ) != 'U' ) {
+							
+							return false;
+						}
+					}
+					
+				}
+						
+					return true;
+			}
+		
+	}
+	
+	final class Bio_seq {
+		
+		String type;
+		ArrayList<Character>seq;
+		public Bio_seq() {
+			
+			seq = new ArrayList<Character>();
+		}
+	}
+}
+
