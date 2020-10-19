@@ -3,8 +3,17 @@ import java.util.*;
 
 
 public class DNAList {
-	
-	
+
+	final class Bio_seq {
+		
+		String type;
+		ArrayList<Character>seq;
+		public Bio_seq() {
+			
+			seq = new ArrayList<Character>();
+		}
+	}
+
 	public static void main ( String [] args ) {
 		
 		int size = Integer.parseInt( args[ 0 ] );
@@ -140,16 +149,6 @@ public class DNAList {
 					return true;
 			}
 		
-	}
-	
-	final class Bio_seq {
-		
-		String type;
-		ArrayList<Character>seq;
-		public Bio_seq() {
-			
-			seq = new ArrayList<Character>();
-		}
 	}
 }
 
